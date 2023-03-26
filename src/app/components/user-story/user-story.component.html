@@ -1,0 +1,37 @@
+<div class="row heading light-background">
+  <div class="col-4">
+    <div class="d-flex justify-content-start">
+      <button class="btn btn-primary btn-icon" (click)="goBack()">
+        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+  <div class="col-8 d-flex justify-content-end">
+    <button class="btn btn-primary" (click)="start()">START</button>
+  </div>
+</div>
+
+<button class="btn btn-primary btn-icon caret-left" (click)="goBackStory()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-left-fill" viewBox="0 0 16 16">
+    <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z"/>
+  </svg>
+</button>
+
+
+<button class="btn btn-primary btn-icon caret-rigth" (click)="goNextStory()">
+  <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-caret-right-fill" viewBox="0 0 16 16">
+    <path d="m12.14 8.753-5.482 4.796c-.646.566-1.658.106-1.658-.753V3.204a1 1 0 0 1 1.659-.753l5.48 4.796a1 1 0 0 1 0 1.506z"/>
+  </svg>
+</button>
+
+<div class="card">
+    <div class="card-body">
+      <h5 class="card-title text-center">{{userStory.Titulo}}</h5>
+      <h6 class="card-subtitle mb-2 text-muted" *ngIf="userStory.Scored == true">Score: {{scoreHistory.final}}</h6>
+      <div class="card-body-text">
+        <p class="card-text">{{userStory.Descripcion}}</p>
+      </div>
+    </div>
+</div>

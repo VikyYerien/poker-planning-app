@@ -1,0 +1,15 @@
+.card {
+    padding: 10px;
+    width: 40vw;
+    border: solid #b9cef4 1px;
+    background-color: #b9cef4;
+}
+
+.container {
+    padding-top: 15vh;
+}
+
+input {
+    border: white;
+}
+

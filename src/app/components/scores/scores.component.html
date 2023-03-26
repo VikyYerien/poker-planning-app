@@ -1,0 +1,13 @@
+<div class="container">
+    <h5 class="text-center">{{userStory.Titulo}}</h5>
+    <div class="row">
+        <div class="col-3" *ngFor="let itemScore of scoreHistory.scores">
+            <div class="card">
+                <div class="card-body" *ngFor="let obj of itemScore">
+                    <p class="card-text">{{userName(obj.id_user)[0].Nombre}} {{userName(obj.id_user)[0].Apellido}}: {{obj.score}}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h6 *ngIf="userStory.Scored == true">Score: {{scoreHistory.final}}</h6>
+</div>

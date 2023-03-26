@@ -1,0 +1,23 @@
+.container {
+    padding-top: 20px;
+}
+
+.card {
+    border-color: white;
+    padding: 10px;
+    width: 40vw;
+    min-height: 40vh;
+    background-color: white;
+    box-shadow: 0 1px 4px 2px #eff0f8;
+}
+
+.list {
+    border-color: white;
+}
+
+.list-group-item .list-group-item-action, a {
+    border-color: white;
+}
+.padding {
+    padding: 10px;
+}

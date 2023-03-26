@@ -1,0 +1,103 @@
+<div class="row heading light-background">
+    <div class="col-4">
+        <div class="d-flex justify-content-start">
+          <button class="btn btn-primary btn-icon" (click)="goBack()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-left-circle" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M1 8a7 7 0 1 0 14 0A7 7 0 0 0 1 8zm15 0A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-4.5-.5a.5.5 0 0 1 0 1H5.707l2.147 2.146a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L5.707 7.5H11.5z"/>
+            </svg>
+          </button>
+        </div>
+    </div>
+    <div class="col-4" *ngIf="selected.Titulo != ''">
+        <p class="h1 text-center">{{selected.Titulo}}</p>
+    </div>
+    <div class="col-4">
+        <div class="row d-flex justify-content-end">
+
+            <div class="col-2 d-flex justify-content-center">
+                <button class="btn btn-primary" (click)="turn()" [disabled]="cardsTourned == true || myPoints == ''">TURN</button>
+            </div>
+            <div class="col-2 d-flex justify-content-center">
+                <button class="btn btn-secondary btn-icon" (click)="reVote()" [disabled]="!cardsTourned">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
+                        <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
+                    </svg>
+                </button>
+            </div>
+            <div class="col-2 d-flex justify-content-center">
+                <button class="btn btn-primary btn-icon" (click)="save()" [disabled]="!cardsTourned">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check-circle" viewBox="0 0 16 16">
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                        <path d="M10.97 4.97a.235.235 0 0 0-.02.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05z"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-2 list-background d-flex justify-content-center">
+        <div class="col-10 card-user-story-background light-background" *ngIf="this.filtered().length > 0; else elseBlock">
+            <div class="list list-group" *ngFor="let item of this.filtered()"> 
+                <button (click)="select(item)" class="list-group-item list-group-item-action" [ngClass]="{'selected-item': item == this.selected}">{{item.Titulo}}</button>
+            </div>
+        </div>
+        <ng-template #elseBlock><p class="padding-10">No items left.</p></ng-template>
+    </div>
+
+    <div class="col-8 padding-10">
+        <div class="col-12 light-background padding-10 description-div">
+            <p class="text-center">{{selected.Descripcion}}</p>
+        </div>
+        <div class="row d-flex justify-content-center cards-div">
+            <div class="col-3 padding" *ngFor="let score of scores">
+                <div class="row">
+                    <div class="col-12 d-flex justify-content-center">
+                        <app-card [score]="score.score" [turned]="cardsTourned" [animated]="animated"></app-card>
+                    </div>
+                    <div class="col-12 d-flex justify-content-center">
+                        <p class="h6 text-center">{{userName(score.id_user)[0].Nombre}} {{userName(score.id_user)[0].Apellido}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row d-flex justify-content-center">
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <app-card [score]="myPoints" [turned]="cardsTourned" [animated]="animated"></app-card>
+                        </div>
+                        <div class="col-12 d-flex justify-content-center">
+                            <p class="h6 text-center">Me</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-2 list-background d-flex justify-content-center">
+        <div class="col-10 card-user-story-background  light-background">
+            <div *ngIf="userStoriesListScored.length > 0; else elseBlock2">
+                <div class="list list-group" *ngFor="let item of userStoriesListScored"> 
+                    <button (click)="select(item)" class="list-group-item list-group-item-action" [ngClass]="{'selected-item': item == this.selected}">{{item.Titulo}}</button>
+                </div>
+            </div>
+            <ng-template #elseBlock2><p class="padding-10">No reviewed items yet.</p></ng-template>
+        </div>
+    </div>
+
+</div>
+
+<div class="row d-flex justify-content-center background">
+    <div class="col-1" *ngFor="let points of fibSecuence">
+        <div class="container d-flex justify-content-center">
+            <div class="col-12">
+                <button class="card-btn" (click)="selectCard(points)" [ngClass]="{'selected': points == myPoints}">
+                    <app-card [score]="points" [turned]="true"></app-card>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

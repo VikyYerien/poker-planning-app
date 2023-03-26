@@ -1,0 +1,35 @@
+.card {
+    width: 50vw;
+    padding: 10px;
+    min-height: 40vh;
+    border-color: white;
+    background-color: white;
+    box-shadow: 0 1px 4px 2px #eff0f8;
+    position: fixed;
+    top: 30vh;
+    right: 25vw;
+    left: 25vw;
+}
+
+.card-body-text {
+    background-color: white;
+    padding: 5px;
+    min-height: 30vh;
+    border-radius: 5px;
+}
+
+.padding {
+    padding: 10px;
+}
+
+.caret-rigth {
+    position: fixed;
+    top: 45vh;
+    right: 22vw;
+}
+
+.caret-left {
+    position: fixed;
+    top: 45vh;
+    left: 22vw;
+}
