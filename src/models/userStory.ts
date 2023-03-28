@@ -5,6 +5,7 @@ export class userStory {
 	Titulo: string;
 	Descripcion: string;
     Scored: boolean;
+    finalScore: string;
 
     constructor () {
         this._id = '';
@@ -13,6 +14,7 @@ export class userStory {
         this.Titulo = '';
         this.Descripcion = '';
         this.Scored = false;
+        this.finalScore = '';
     }
 
 }

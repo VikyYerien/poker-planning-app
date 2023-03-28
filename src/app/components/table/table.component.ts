@@ -31,42 +31,24 @@ export class TableComponent implements OnInit {
     scores_id: '',
     Titulo: 'la lalala',
     Descripcion: 'lalalalallala  lalalallalalalalala llalalalalalallalallalalalalallala lalalal lalalalaallalalalala',
-    Scored: false
+    Scored: false,
+    finalScore:''
   },
   {_id: '2',
     session_id: '11',
     scores_id: '',
     Titulo: 'ble blelelelellelele',
     Descripcion: 'blelelelellelele blelelelellelele blelelelellelele blelelelellelele blelelelellelele blelelelellelele',
-    Scored: false
+    Scored: false,
+    finalScore:''
   },
   {_id: '3',
     session_id: '11',
     scores_id: '',
     Titulo: 'ji jijijijijiji',
     Descripcion: 'ji jijijijijiji jijijijijiji jijijijijijijijijijijijijijijijijiji jijijijijiji jijijijijiji jijijijijijijijijijijiji jijijijijijijijijijijiji jijijijijiji ji jijijijijiji jijijijijiji jijijijijijijijijijijijijijijijijiji jijijijijiji jijijijijiji jijijijijijijijijijijiji jijijijijijijijijijijiji jijijijijiji ji jijijijijiji jijijijijiji jijijijijijijijijijijijijijijijijiji jijijijijiji jijijijijiji jijijijijijijijijijijiji jijijijijijijijijijijiji jijijijijiji ji jijijijijiji jijijijijiji jijijijijijijijijijijijijijijijijiji jijijijijiji jijijijijiji jijijijijijijijijijijiji jijijijijijijijijijijiji jijijijijiji ji jijijijijiji jijijijijiji jijijijijijijijijijijijijijijijijiji jijijijijiji jijijijijiji jijijijijijijijijijijiji jijijijijijijijijijijiji jijijijijijiji jijijijijiji jijijijijiji jijijijijijijijijijijijijijijijijiji jijijijijiji jijijijijiji jijijijijijijijijijijiji jijijijijijijijijijijiji jijijijijiji',
-    Scored: false
-  },
-{_id: '1',
-    session_id: '11',
-    scores_id: '',
-    Titulo: 'la lalala',
-    Descripcion: 'lalalalallala  lalalallalalalalala llalalalalalallalallalalalalallala lalalal lalalalaallalalalala',
-    Scored: false
-  },
-  {_id: '2',
-    session_id: '11',
-    scores_id: '',
-    Titulo: 'ble blelelelellelele',
-    Descripcion: 'blelelelellelele blelelelellelele blelelelellelele blelelelellelele blelelelellelele blelelelellelele',
-    Scored: false
-  },
-  {_id: '3',
-    session_id: '11',
-    scores_id: '',
-    Titulo: 'ji jijijijijiji',
-    Descripcion: 'ji jijijijijiji jijijijijiji jijijijijijijijijijijijijijijijijiji jijijijijiji jijijijijiji jijijijijijijijijijijiji jijijijijijijijijijijiji jijijijijiji',
-    Scored: false
+    Scored: false,
+    finalScore:''
   }]
 
   userStoriesListScored: Array<any> = [];
@@ -85,6 +67,8 @@ export class TableComponent implements OnInit {
   ]
 
   scoresHistory: scoreHistory = new scoreHistory;
+
+  scoresHistories: scoreHistory [] = [];
 
 //Se actualiza en tiempo real al botar, cada quien tendra my score o algo asi
   scores = [
@@ -130,6 +114,10 @@ export class TableComponent implements OnInit {
     scoresToSave.push(this.myScore);
     this.scoresHistory.user_story_id = this.selected._id;
     this.scoresHistory.scores.push(scoresToSave);
+    this.scoresHistories.push(this.scoresHistory);
+
+    this.selected.finalScore = this.ArrayAvg(scoresToSave);
+
     this.cardsTourned = false;
     this.myPoints = '';
 
@@ -139,15 +127,24 @@ export class TableComponent implements OnInit {
         this.userStoriesListScored.push(this.userStoriesList[i]);
       }
     }
+
 //selects the next one
     let filtered = this.filtered();
-    console.log('filtered:', filtered)
     if (filtered.length > 0) {
       this.selected = filtered[0];
     }
 
-    console.log(this.scoresHistory);
   }
+
+  //AVG final scores
+  ArrayAvg(myArray:Array<any>) {
+    myArray = myArray.map(e => Number(e.score))
+    var i = 0, summ = 0, ArrayLen = myArray.length;
+    while (i < ArrayLen) {
+        summ = summ + myArray[i++];
+}
+    return String(Math.floor(summ / ArrayLen));
+}
 
   reVote() {
     let scoresToSave = this.scores.slice();
@@ -155,6 +152,7 @@ export class TableComponent implements OnInit {
     scoresToSave.push(this.myScore);
     this.scoresHistory.user_story_id = this.selected._id;
     this.scoresHistory.scores.push(scoresToSave);
+    this.scoresHistories.push(this.scoresHistory);
     this.cardsTourned = false;
     this.myPoints = '';
     console.log(this.scoresHistory);
@@ -180,4 +178,5 @@ export class TableComponent implements OnInit {
   filtered() {
     return this.userStoriesList.filter(e => e.Scored == false);
   }
+
 }
